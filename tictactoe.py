@@ -19,3 +19,17 @@ def player_input():
 
 def place_marker(board, marker, position):
 	board[position] = marker
+
+def win_check(board, mark):
+	for x in range(1,4):
+		if board[x] == board[x + 3] == board[x + 6] == mark:
+			return True
+	for x in range(1,8,3):
+		if board[x] == board[x + 1] == board[x + 2] == mark:
+			return True
+	if board[1] == board[5] == board[9]:
+		return True
+	elif board[7] == board[5] == board[3]: 
+		return True
+	else:
+		return False
