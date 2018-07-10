@@ -59,6 +59,12 @@ def player_choice(board):
 	
 	return pos
 
-
+def replay():
+	play = input('Play again? (Y or N)')
+	play = play.lower()
+	if play == 'y':
+		return True
+	else if play == 'n':
+		return False
 
 
