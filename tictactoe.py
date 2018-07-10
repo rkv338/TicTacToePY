@@ -51,5 +51,14 @@ def full_board_check(board):
 		if space_check(board, x) == False:
 			return False
 	return True
+
+def player_choice(board):
+	pos = 0
+	while  not space_check(board,pos):
+		pos = int(input('Position of move?'))
 	
+	return pos
+
+
+
 
