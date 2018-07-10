@@ -8,15 +8,12 @@ def display_board(board):
 	print(board[1] + '|' + board[2] + '|' + board[3])
 
 def player_input():
-	player1 = ''
-	player2 = ''
+	player1 = ''	
 	while player1 != 'X' and player1 != 'O':
 		player1 = input('Player 1, type in X or O to select your marker: \n')
 
-	if player1 == 'X':
-		player2 = 'O'
-	else:
-		player2 = 'X'
+	return player1
+	
 
 def place_marker(board, marker, position):
 	board[position] = marker
@@ -28,9 +25,9 @@ def win_check(board, mark):
 	for x in range(1,8,3):
 		if board[x] == board[x + 1] == board[x + 2] == mark:
 			return True
-	if board[1] == board[5] == board[9]:
+	if board[1] == board[5] == board[9] == mark:
 		return True
-	elif board[7] == board[5] == board[3]: 
+	elif board[7] == board[5] == board[3] == mark: 
 		return True
 	else:
 		return False
@@ -42,7 +39,7 @@ def choose_first():
 		return 'Player 2'
 
 def space_check(board, position):
-	if board[position]:
+	if board[position] == ' ':
 		return True
 	else:
 		return False
@@ -64,7 +61,57 @@ def replay():
 	play = play.lower()
 	if play == 'y':
 		return True
-	else if play == 'n':
+	elif play == 'n':
 		return False
+
+print('Tic Tac Toe Game')
+
+while True:
+	board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+	player1 = ''
+	player2 = ''
+	player1 = player_input()
+	if player1 == 'X':
+		player2 = 'O'
+	else:
+		player2 = 'X'
+	print('THIS IS PLAYER 2' + player2)
+	first = choose_first()
+	print(first + ' will go first.')
+	
+	game = True
+	while game:
+		curr = first
+		if curr == 'Player 1':
+			display_board(board)
+			place_marker(board, player1, player_choice(board))
+			display_board(board)
+			if win_check(board, player1):
+				print('Player 1 won.')
+				game = False
+			elif full_board_check(board):
+				print('Tie')
+				game = False
+			print("Player 2's turn")
+		else:
+			display_board(board)
+			place_marker(board, player2, player_choice(board))
+			display_board(board)
+			if win_check(board, player2):
+				print('Player 2 won.')
+				game = False
+			elif full_board_check(board):
+				print('Tie')
+				game = False
+			print("Player 1's turn")
+		if curr == 'Player 1':
+			curr = 'Player 2'
+		else:
+			curr = 'Player 1'
+	if not replay():
+		break
+
+
+
 
 
