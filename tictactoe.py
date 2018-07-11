@@ -39,8 +39,11 @@ def choose_first():
 		return 'Player 2'
 
 def space_check(board, position):
-	if board[position] == ' ':
-		return True
+	if position < 10 and position > 0:
+		if board[position] != ' ':
+			return True
+		else:
+			return False
 	else:
 		return False
 def full_board_check(board):
@@ -50,9 +53,12 @@ def full_board_check(board):
 	return True
 
 def player_choice(board):
-	pos = 0
-	while  not space_check(board,pos):
+	pos = -1
+	while  pos < 1 or pos > 9 and not space_check(board,pos):
+		if pos != -1:
+			print('Position not available')		
 		pos = int(input('Position of move?'))
+		
 	
 	return pos
 
@@ -81,33 +87,39 @@ while True:
 	
 	game = True
 	while game:
-		curr = first
-		if curr == 'Player 1':
+		
+		if first == 'Player 1':
+			print('PLAYER 1 GO:' + first)
 			display_board(board)
-			place_marker(board, player1, player_choice(board))
+			posChoice = player_choice(board)
+			print(posChoice)
+			place_marker(board, player1, posChoice)
 			display_board(board)
 			if win_check(board, player1):
 				print('Player 1 won.')
-				game = False
+				break
 			elif full_board_check(board):
 				print('Tie')
-				game = False
+				break
 			print("Player 2's turn")
 		else:
+			print('PLAYER 2 GO')
 			display_board(board)
-			place_marker(board, player2, player_choice(board))
+			posChoice = player_choice(board)
+			print(posChoice)
+			place_marker(board, player2, posChoice)
 			display_board(board)
 			if win_check(board, player2):
 				print('Player 2 won.')
-				game = False
+				break
 			elif full_board_check(board):
 				print('Tie')
-				game = False
+				break
 			print("Player 1's turn")
-		if curr == 'Player 1':
-			curr = 'Player 2'
+		if first == 'Player 1':
+			first = 'Player 2'
 		else:
-			curr = 'Player 1'
+			first = 'Player 1'
 	if not replay():
 		break
 
