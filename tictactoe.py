@@ -47,9 +47,8 @@ def space_check(board, position):
 	else:
 		return False
 def full_board_check(board):
-	for x in range(0, len(board) - 1):
-		if space_check(board, x) == False:
-			return False
+	if ' ' in board[1:]:
+		return False
 	return True
 
 def player_choice(board):
